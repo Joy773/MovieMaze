@@ -2,7 +2,8 @@
 const nextConfig = {
     images: {
         domains: ['image.tmdb.org'],
-    }
+    },
+    output: 'export',
 };
 
 export default nextConfig;
