@@ -1,5 +1,18 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter, Orbitron, Poppins } from "next/font/google";
 import "./globals.css";
+import Providers from "@/components/Providers";
+
+const inter = Inter({ subsets: ["latin"], display: "swap" });
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+});
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,9 +33,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable}  antialiased`}
       >
-        {children}
+       <Providers>{children}</Providers>
       </body>
     </html>
   );
