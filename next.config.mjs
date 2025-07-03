@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        domains: ['image.tmdb.org'],
-    },
-    output: 'export',
+  output: 'export',
+  images: {
+    domains: ['image.tmdb.org'],
+    unoptimized: true, // ✅ This line disables optimization for static export
+  },
 };
 
 export default nextConfig;

@@ -20,7 +20,7 @@ export default function Movies() {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const API_KEY = "f053454fa1ffd555aaba984760f0207a";
+  const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
   useEffect(() => {
     const fetchMovies = async () => {
