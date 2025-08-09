@@ -5,12 +5,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToWatchlist } from "../store/watchlistSlice"; // ✅ Add this
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Orbitron, Inter, Cinzel } from "next/font/google";
+import { Orbitron, Inter, Playfair_Display } from "next/font/google";
 import Image from "next/image";
+import { FaStar } from "react-icons/fa6";
 
-const cinzel = Cinzel({ subsets: ["latin"], weight: "700" });
+
 const orbitron = Orbitron({ subsets: ["latin"], weight: "700" });
 const inter = Inter({ subsets: ["latin"], weight: "400" });
+const playfair = Playfair_Display({ subsets: ["latin"], weight: "600" });
 
 export default function Movies() {
   const dispatch = useDispatch();
@@ -107,38 +109,40 @@ export default function Movies() {
               movies.map((movie) => {
                 const isInWatchlist = watchlist.some((item) => item.id === movie.id);
                 return (
-                  <li key={movie.id} className="bg-white shadow rounded p-2 relative">
-                    <Image
-                      width={500}
-                      height={300}
-                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                      alt={movie.title}
-                      className="rounded"
-                    />
-                    <p className={`mt-2 font-bold text-stone-800 ${inter.className}`}>
-                      {movie.title}
-                    </p>
-                    <p className={`mt-2 font-medium text-stone-800 ${inter.className}`}>
-                      <span className="font-bold">Votes:</span> {movie.popularity}
-                    </p>
-
-                    {/* Add or Show Checkmark */}
-                    {isInWatchlist ? (
-                      <span
-                        className="absolute top-2 right-2 bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center shadow"
-                        title="Already in Watchlist"
-                      >
-                        ✓
-                      </span>
-                    ) : (
-                      <button
-                        onClick={() => dispatch(addToWatchlist(movie))}
-                        className="absolute top-2 right-2 bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-blue-700 transition"
-                        aria-label="Add to Watchlist"
-                      >
-                        +
-                      </button>
-                    )}
+                  <li key={movie.id} className="shadow rounded p-2 relative">
+                    <div className="relative inline-block">
+                      <Image
+                        width={300}
+                        height={180}
+                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                        alt={movie.title}
+                        className="rounded-t"
+                      />
+                      {/* Add or Show Checkmark */}
+                      {isInWatchlist ? (
+                        <span
+                          className="absolute top-2 right-2 bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center shadow z-10"
+                          title="Already in Watchlist"
+                        >
+                          ✓
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => dispatch(addToWatchlist(movie))}
+                          className="absolute top-2 right-2 bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-blue-700 transition z-10"
+                          aria-label="Add to Watchlist"
+                        >
+                          +
+                        </button>
+                      )}
+                    </div>
+                    <div className="bg-stone-800 rounded-b px-2 py-2 -mt-1" style={{ width: "300px" }}>
+                      <p className={`mt-2 font-bold text-white ${playfair.className} ml-2`}>{movie.title}</p>
+                      <p className={`mt-2 font-medium text-white ${playfair.className} ml-2`}><span className="font-bold">Votes:</span> {movie.popularity}</p>
+                      <p className={`mt-2 font-medium text-white ${playfair.className} flex items-center gap-2 ml-2 pb-2`}>
+                        <FaStar className="text-yellow-500" /> {movie.vote_average}
+                      </p>
+                    </div>
                   </li>
                 );
               })
